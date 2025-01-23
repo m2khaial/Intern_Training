@@ -27,24 +27,6 @@
             </select>
         </div>
         <div id="steps-page" style="display: none;">
-            <div class="steps-container">
-                <div class="step" id="step-1">
-                    <img src="cat1.jpg" alt="Cute Cat 1">
-                    <p>Step 1: Look at cute cat 1</p>
-                </div>
-                <div class="step" id="step-2" style="display: none;">
-                    <img src="cat2.jpg" alt="Cute Cat 2">
-                    <p>Step 2: Look at cute cat 2</p>
-                </div>
-                <div class="step" id="step-3" style="display: none;">
-                    <img src="cat3.jpg" alt="Cute Cat 3">
-                    <p>Step 3: Look at cute cat 3</p>
-                </div>
-            </div>
-            <div class="navigation-buttons">
-                <button onclick="prevStep()">Prev</button>
-                <button onclick="nextStep()">Next</button>
-            </div>
             <div class="checklist">
                 <h3>Checklist</h3>
                 <ul>
@@ -52,6 +34,27 @@
                     <li><input type="checkbox" id="check-2"> Step 2: Look at cute cat 2</li>
                     <li><input type="checkbox" id="check-3"> Step 3: Look at cute cat 3</li>
                 </ul>
+            </div>
+            <div class="steps-container">
+                <div class="step" id="step-1">
+                    <h2>Step 1: Look at cute cat 1</h2>
+                    <img src="cat1.jpg" alt="Cute Cat 1">
+                    <p>Step 1: Look at cute cat 1</p>
+                </div>
+                <div class="step" id="step-2" style="display: none;">
+                    <h2>Step 2: Look at cute cat 2</h2>
+                    <img src="cat2.jpg" alt="Cute Cat 2">
+                    <p>Step 2: Look at cute cat 2</p>
+                </div>
+                <div class="step" id="step-3" style="display: none;">
+                    <h2>Step 3: Look at cute cat 3</h2>
+                    <img src="cat3.jpg" alt="Cute Cat 3">
+                    <p>Step 3: Look at cute cat 3</p>
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button onclick="prevStep()">Prev</button>
+                <button onclick="nextStep()">Next</button>
             </div>
         </div>
     </div>

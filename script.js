@@ -4,17 +4,19 @@ function handleDropdownChange() {
     const dropdown = document.getElementById('issue-dropdown');
     const additionalQuestion = document.getElementById('additional-question');
     const stepsPage = document.getElementById('steps-page');
-
+    
     if (dropdown.value === 'new-dropdown') {
         additionalQuestion.style.display = 'block';
         stepsPage.style.display = 'none';
     } else if (dropdown.value === 'next-page') {
         additionalQuestion.style.display = 'none';
         stepsPage.style.display = 'block';
+        document.getElementById('main-screen').style.display = 'none';
         showStep(1);
     } else {
         additionalQuestion.style.display = 'none';
         stepsPage.style.display = 'none';
+        document.getElementById('main-screen').style.display = 'block';
     }
 }
 
