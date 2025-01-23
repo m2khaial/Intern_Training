@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Training Website</h1>
-        <div id="main-screen">
+        <div id="main-screen" class="center-screen">
             <label for="issue-dropdown">What issue are you having?</label>
             <select id="issue-dropdown" onchange="handleDropdownChange()">
                 <option value="">Select an option</option>
@@ -27,12 +27,13 @@
             </select>
         </div>
         <div id="steps-page" style="display: none;">
+            <button onclick="goBack()" class="back-button">Back</button>
             <div class="checklist">
                 <h3>Checklist</h3>
                 <ul>
-                    <li><input type="checkbox" id="check-1"> Step 1: Look at cute cat 1</li>
-                    <li><input type="checkbox" id="check-2"> Step 2: Look at cute cat 2</li>
-                    <li><input type="checkbox" id="check-3"> Step 3: Look at cute cat 3</li>
+                    <li><input type="checkbox" id="check-1" onclick="goToStep(1)"> Step 1: Look at cute cat 1</li>
+                    <li><input type="checkbox" id="check-2" onclick="goToStep(2)"> Step 2: Look at cute cat 2</li>
+                    <li><input type="checkbox" id="check-3" onclick="goToStep(3)"> Step 3: Look at cute cat 3</li>
                 </ul>
             </div>
             <div class="steps-container">

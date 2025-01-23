@@ -35,6 +35,8 @@ function handleAdditionalDropdownChange() {
 function showStep(step) {
     for (let i = 1; i <= 3; i++) {
         document.getElementById(`step-${i}`).style.display = i === step ? 'block' : 'none';
+        document.getElementById(`check-${i}`).checked = false; // Uncheck the checklist item
+        if (i === step) document.getElementById(`check-${i}`).checked = true; // Check the current step
     }
 }
 
@@ -50,4 +52,14 @@ function prevStep() {
         currentStep--;
         showStep(currentStep);
     }
+}
+
+function goBack() {
+    document.getElementById('main-screen').style.display = 'block';
+    document.getElementById('steps-page').style.display = 'none';
+}
+
+function goToStep(step) {
+    currentStep = step;
+    showStep(step);
 }
