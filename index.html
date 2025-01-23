@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Training Website</h1>
+        <div id="main-screen">
+            <label for="issue-dropdown">What issue are you having?</label>
+            <select id="issue-dropdown" onchange="handleDropdownChange()">
+                <option value="">Select an option</option>
+                <option value="next-page">Leads to next page</option>
+                <option value="new-dropdown">Leads to a new drop down</option>
+                <option value="irrelevant-example">Irrelevant example</option>
+            </select>
+        </div>
+        <div id="additional-question" style="display: none;">
+            <label for="additional-dropdown">What kind of PO issue?</label>
+            <select id="additional-dropdown" onchange="handleAdditionalDropdownChange()">
+                <option value="">Select an option</option>
+                <option value="po-issue-1">PO Issue 1</option>
+                <option value="po-issue-2">PO Issue 2</option>
+            </select>
+        </div>
+        <div id="steps-page" style="display: none;">
+            <div class="steps-container">
+                <div class="step" id="step-1">
+                    <img src="cat1.jpg" alt="Cute Cat 1">
+                    <p>Step 1: Look at cute cat 1</p>
+                </div>
+                <div class="step" id="step-2" style="display: none;">
+                    <img src="cat2.jpg" alt="Cute Cat 2">
+                    <p>Step 2: Look at cute cat 2</p>
+                </div>
+                <div class="step" id="step-3" style="display: none;">
+                    <img src="cat3.jpg" alt="Cute Cat 3">
+                    <p>Step 3: Look at cute cat 3</p>
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button onclick="prevStep()">Prev</button>
+                <button onclick="nextStep()">Next</button>
+            </div>
+            <div class="checklist">
+                <h3>Checklist</h3>
+                <ul>
+                    <li><input type="checkbox" id="check-1"> Step 1: Look at cute cat 1</li>
+                    <li><input type="checkbox" id="check-2"> Step 2: Look at cute cat 2</li>
+                    <li><input type="checkbox" id="check-3"> Step 3: Look at cute cat 3</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
+    <script src="script.js"></script>
+</body>
+</html>
