@@ -8,6 +8,16 @@ function handleDropdownChange() {
     if (dropdown.value === 'new-dropdown') {
         additionalQuestion.style.display = 'block';
         stepsPage.style.display = 'none';
+        additionalQuestion.classList.add('center-screen');
+        document.getElementById('main-screen').classList.remove('center-screen');
+        document.getElementById('main-screen').style.marginBottom = '20px';
+        additionalQuestion.style.marginTop = '20px';
+        additionalQuestion.style.marginBottom = '20px';
+        
+        // Adjust the height of the main screen and additional question container
+        document.getElementById('main-screen').style.height = 'auto';
+        additionalQuestion.style.height = 'auto';
+        
     } else if (dropdown.value === 'next-page') {
         additionalQuestion.style.display = 'none';
         stepsPage.style.display = 'block';

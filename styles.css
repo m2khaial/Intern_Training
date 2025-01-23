@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: linear-gradient(to right, #ff7e5f, #feb47b);
     color: #333;
+    margin: 0;
+    overflow: hidden;
 }
 
 .container {
@@ -29,6 +33,7 @@ select {
 
 .center-screen {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: calc(100vh - 100px);
@@ -39,7 +44,8 @@ select {
 }
 
 .step img {
-    max-width: 100%;
+    max-width: 80%;
+    margin-top: 20px;
 }
 
 .navigation-buttons {
@@ -77,4 +83,26 @@ select {
     position: absolute;
     top: 10px;
     left: 10px;
+}
+
+button, select {
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    background-color: #ff7e5f;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover, select:hover {
+    background-color: #feb47b;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.step, .checklist, .navigation-buttons, .back-button {
+    animation: fadeIn ease-in-out .5s;
 }
