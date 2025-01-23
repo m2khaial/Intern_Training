@@ -36,6 +36,7 @@ function handleAdditionalDropdownChange() {
 
     if (additionalDropdown.value) {
         stepsPage.style.display = 'block';
+        document.getElementById('main-screen').style.display = 'none';
         showStep(1);
     } else {
         stepsPage.style.display = 'none';
@@ -67,6 +68,9 @@ function prevStep() {
 function goBack() {
     document.getElementById('main-screen').style.display = 'block';
     document.getElementById('steps-page').style.display = 'none';
+    document.getElementById('issue-dropdown').value = '';
+    document.getElementById('additional-dropdown').value = '';
+    document.getElementById('additional-question').style.display = 'none';
 }
 
 function goToStep(step) {

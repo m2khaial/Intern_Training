@@ -44,7 +44,7 @@ select {
 }
 
 .step img {
-    max-width: 80%;
+    max-width: 90%;
     margin-top: 20px;
 }
 
@@ -77,6 +77,10 @@ select {
 
 .checklist li {
     margin-bottom: 10px;
+}
+
+.checklist span {
+    cursor: pointer;
 }
 
 .back-button {
