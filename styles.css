@@ -2,8 +2,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
-    color: #333;
+    background: linear-gradient(to right, #EE3024, #F88E1E);
+    color: #000000;
     margin: 0;
     overflow: hidden;
 }
@@ -28,7 +28,12 @@ label {
 
 select {
     font-size: 1.2em;
-    padding: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    background-color: #F88E1E;
+    color: #fff;
+    cursor: pointer;
 }
 
 .center-screen {
@@ -87,19 +92,25 @@ select {
     position: absolute;
     top: 10px;
     left: 10px;
+    background-color: #EE3024;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 button, select {
     border-radius: 5px;
     border: none;
     padding: 10px;
-    background-color: #ff7e5f;
+    background-color: #EE3024;
     color: white;
     cursor: pointer;
 }
 
 button:hover, select:hover {
-    background-color: #feb47b;
+    background-color: #F88E1E;
 }
 
 @keyframes fadeIn {
