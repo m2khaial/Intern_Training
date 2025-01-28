@@ -121,3 +121,13 @@ button:hover, select:hover {
 .step, .checklist, .navigation-buttons, .back-button {
     animation: fadeIn ease-in-out .5s;
 }
+
+.learn-more {
+    font-size: 0.9em;
+    color: #EE3024;
+}
+.learn-more a {
+    color: #EE3024;
+    text-decoration: underline;
+    cursor: pointer;
+}

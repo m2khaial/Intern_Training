@@ -27,15 +27,18 @@ function handleMainDropdownChange() {
             <option value="">Select an option</option>
             <option value="c3">C3</option>
             <option value="lcl-vendor-portal">LCL Vendor Portal</option>
-            <option value="excel-sheet">Excel Sheet</option>
+            <option value="backup-contacts">Backup Contacts</option>
         `;
+        const notSureText = document.createElement('p');
+        notSureText.innerHTML = 'Not sure which one? <a href="#" onclick="showUserGuides()">Click here to find out.</a>';
+        additionalQuestion.appendChild(notSureText);
     } else if (mainDropdown.value === 'offshore-priority-workbook') {
         showSteps('offshore-priority-workbook');
     } else if (mainDropdown.value === 'vendor-infractions') {
         showSteps('vendor-infractions');
     } else if (mainDropdown.value === 'portal-issues-general') {
         additionalQuestion.style.display = 'block';
-        additionalQuestion.querySelector('label').textContent = 'What is the specific issue?';
+        additionalQuestion.querySelector('label').textContent = 'What issue are you facing?';
         additionalQuestion.querySelector('select').innerHTML = `
             <option value="">Select an option</option>
             <option value="lockout">Lockout</option>
@@ -77,6 +80,15 @@ function showEmailTemplates() {
     showStep(1);
 }
 
+function showUserGuides() {
+    const stepsPage = document.getElementById('steps-page');
+    stepsPage.style.display = 'block';
+    document.getElementById('main-screen').style.display = 'none';
+    document.getElementById('additional-question').style.display = 'none';
+    // Add logic to display user guides
+    showStep(1);
+}
+
 function showStep(step) {
     for (let i = 1; i <= 3; i++) {
         document.getElementById(`step-${i}`).style.display = i === step ? 'block' : 'none';
@@ -102,7 +114,7 @@ function prevStep() {
 function goBack() {
     document.getElementById('main-screen').style.display = 'block';
     document.getElementById('steps-page').style.display = 'none';
-    document.getElementById('issue-dropdown').value = '';
+    document.getElementById('main-dropdown').value = '';
     document.getElementById('additional-dropdown').value = '';
     document.getElementById('additional-question').style.display = 'none';
 }
