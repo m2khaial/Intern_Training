@@ -5,6 +5,8 @@ function handleMainDropdownChange() {
     const additionalQuestion = document.getElementById('additional-question');
     const stepsPage = document.getElementById('steps-page');
     
+    console.log('Main dropdown changed:', mainDropdown.value);
+
     additionalQuestion.style.display = 'none';
     stepsPage.style.display = 'none';
     document.getElementById('main-screen').style.display = 'block';
@@ -53,6 +55,8 @@ function handleAdditionalDropdownChange() {
     const additionalDropdown = document.getElementById('additional-dropdown');
     const mainDropdown = document.getElementById('main-dropdown');
 
+    console.log('Additional dropdown changed:', additionalDropdown.value);
+
     if (mainDropdown.value === 'familiarize-platform') {
         showSteps(`familiarize-${additionalDropdown.value}`);
     } else if (mainDropdown.value === 'adding-new-contact') {
@@ -67,6 +71,7 @@ function showSteps(stepType) {
     stepsPage.style.display = 'block';
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('additional-question').style.display = 'none';
+    console.log('Showing steps for:', stepType);
     // Add logic to display steps based on stepType
     showStep(1);
 }
@@ -76,6 +81,7 @@ function showEmailTemplates() {
     stepsPage.style.display = 'block';
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('additional-question').style.display = 'none';
+    console.log('Showing email templates');
     // Add logic to display email templates
     showStep(1);
 }
@@ -85,11 +91,13 @@ function showUserGuides() {
     stepsPage.style.display = 'block';
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('additional-question').style.display = 'none';
+    console.log('Showing user guides');
     // Add logic to display user guides
     showStep(1);
 }
 
 function showStep(step) {
+    console.log('Showing step:', step);
     for (let i = 1; i <= 3; i++) {
         document.getElementById(`step-${i}`).style.display = i === step ? 'block' : 'none';
         document.getElementById(`check-${i}`).checked = false; // Uncheck the checklist item
