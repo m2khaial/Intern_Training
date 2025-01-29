@@ -1,72 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Website</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Training Website</h1>
-        <div id="main-screen" class="center-screen">
-            <label for="main-dropdown">What do you need help with?</label>
-            <select id="main-dropdown" onchange="handleMainDropdownChange()">
-                <option value="">Select an option</option>
-                <option value="familiarize-platform">Familiarize with Platform</option>
-                <option value="email-templates">Email Templates</option>
-                <option value="adding-new-contact">Adding a New Contact</option>
-                <option value="offshore-priority-workbook">Offshore Priority Workbook Updates</option>
-                <option value="vendor-infractions">Vendor Infractions</option>
-                <option value="portal-issues-general">Portal Issues General</option>
-            </select>
-        </div>
-        <div id="additional-question" style="display: none;">
-            <label for="additional-dropdown">Which platform?</label>
-            <select id="additional-dropdown" onchange="handleAdditionalDropdownChange()">
-                <option value="">Select an option</option>
-                <option value="c3">C3</option>
-                <option value="lcl-vendor-portal">LCL Vendor Portal</option>
-                <option value="sharepoint">SharePoint</option>
-            </select>
-        </div>
-        <div id="steps-page" style="display: none;">
-            <button onclick="goBack()" class="back-button">Back</button>
-            <div class="checklist">
-                <h3>Checklist</h3>
-                <ul>
-                    <li><input type="checkbox" id="check-1"><span onclick="goToStep(1)"> Step 1: Look at cute cat 1</span></li>
-                    <li><input type="checkbox" id="check-2"><span onclick="goToStep(2)"> Step 2: Look at cute cat 2</span></li>
-                    <li><input type="checkbox" id="check-3"><span onclick="goToStep(3)"> Step 3: Look at cute cat 3</span></li>
-                </ul>
-            </div>
-            <div class="steps-container">
-                <div class="step" id="step-1">
-                    <h2>Step 1: Look at cute cat 1</h2>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBYYFhUjvNhBJ9SwQTv8X3PyQVtd-EejwOMQ&s" alt="Cute Cat 1">
-                    <p>Step 1: Look at cute cat 1</p>
-                    <p class="learn-more">Don't know how to look at cute cat 1? <a href="#">Click here to learn how</a></p>
-                </div>
-                <div class="step" id="step-2" style="display: none;">
-                    <h2>Step 2: Look at cute cat 2</h2>
-                    <img src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg" alt="Cute Cat 2">
-                    <p>Step 2: Look at cute cat 2</p>
-                    <p class="learn-more">Don't know how to look at cute cat 2? <a href="#">Click here to learn how</a></p>
-                </div>
-                <div class="step" id="step-3" style="display: none;">
-                    <h2>Step 3: Look at cute cat 3</h2>
-                    <img src="https://cdn.shopify.com/s/files/1/3026/6974/files/cat-jumping-playing-grass.jpg?v=1534094562" alt="Cute Cat 3">
-                    <p>Step 3: Look at cute cat 3</p>
-                    <p class="learn-more">Don't know how to look at cute cat 3? <a href="#">Click here to learn how</a></p>
-                </div>
-            </div>
-            <div class="navigation-buttons">
-                <button onclick="prevStep()">Prev</button>
-                <button onclick="nextStep()">Next</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Training Website</title>
+                        <link rel="stylesheet" href="styles.css">
+                    </head>
+                    <body>
+                        <div class="container">
+                            <h1>Training Website</h1>
+                            <div id="main-screen" class="center-screen">
+                                <label for="main-dropdown">What do you need help with?</label>
+                                <select id="main-dropdown" onchange="handleMainDropdownChange()">
+                                    <option value="">Select an option</option>
+                                    <option value="familiarize-platform">Familiarize with Platform</option>
+                                    <option value="email-templates">Email Templates</option>
+                                    <option value="adding-new-contact">Adding a New Contact</option>
+                                    <option value="offshore-priority-workbook">Offshore Priority Workbook Updates</option>
+                                    <option value="vendor-infractions">Vendor Infractions</option>
+                                    <option value="portal-issues-general">Portal Issues General</option>
+                                </select>
+                            </div>
+                            <div id="additional-question" style="display: none;">
+                                <label for="additional-dropdown">Which platform?</label>
+                                <select id="additional-dropdown" onchange="handleAdditionalDropdownChange()">
+                                    <option value="">Select an option</option>
+                                    <option value="c3">C3</option>
+                                    <option value="lcl-vendor-portal">LCL Vendor Portal</option>
+                                    <option value="sharepoint">SharePoint</option>
+                                </select>
+                            </div>
+                            <div id="steps-page" style="display: none;">
+                                <button onclick="goBack()" class="back-button">Back</button>
+                                <div class="checklist">
+                                    <h3>Checklist</h3>
+                                    <ul>
+                                        <li><input type="checkbox" id="check-1"><span onclick="goToStep(1)"> Step 1: Look at cute cat 1</span></li>
+                                        <li><input type="checkbox" id="check-2"><span onclick="goToStep(2)"> Step 2: Look at cute cat 2</span></li>
+                                        <li><input type="checkbox" id="check-3"><span onclick="goToStep(3)"> Step 3: Look at cute cat 3</span></li>
+                                    </ul>
+                                </div>
+                                <div class="steps-container">
+                                    <div class="step" id="step-1">
+                                        <h2>Step 1: Look at cute cat 1</h2>
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBYYFhUjvNhBJ9SwQTv8X3PyQVtd-EejwOMQ&s" alt="Cute Cat 1">
+                                        <p>Step 1: Look at cute cat 1</p>
+                                        <p class="learn-more">Don't know how to look at cute cat 1? <a href="#">Click here to learn how</a></p>
+                                    </div>
+                                    <div class="step" id="step-2" style="display: none;">
+                                        <h2>Step 2: Look at cute cat 2</h2>
+                                        <img src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg" alt="Cute Cat 2">
+                                        <p>Step 2: Look at cute cat 2</p>
+                                        <p class="learn-more">Don't know how to look at cute cat 2? <a href="#">Click here to learn how</a></p>
+                                    </div>
+                                    <div class="step" id="step-3" style="display: none;">
+                                        <h2>Step 3: Look at cute cat 3</h2>
+                                        <img src="https://cdn.shopify.com/s/files/1/3026/6974/files/cat-jumping-playing-grass.jpg?v=1534094562" alt="Cute Cat 3">
+                                        <p>Step 3: Look at cute cat 3</p>
+                                        <p class="learn-more">Don't know how to look at cute cat 3? <a href="#">Click here to learn how</a></p>
+                                    </div>
+                                </div>
+                                <div class="navigation-buttons">
+                                    <button onclick="prevStep()">Prev</button>
+                                    <button onclick="nextStep()">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <script src="script.js"></script>
+                    </body>
+                    </html>
