@@ -7,9 +7,18 @@ function handleMainDropdownChange() {
     
     console.log('Main dropdown changed:', mainDropdown.value);
 
+    // Hide child elements and steps page by default
     additionalQuestion.style.display = 'none';
     stepsPage.style.display = 'none';
     document.getElementById('main-screen').style.display = 'block';
+
+    // Reset the additionalQuestion container content so it doesn’t accumulate extra elements
+    additionalQuestion.innerHTML = `
+        <label for="additional-dropdown"></label>
+        <select id="additional-dropdown" onchange="handleAdditionalDropdownChange()">
+            <option value="">Select an option</option>
+        </select>
+    `;
 
     if (mainDropdown.value === 'familiarize-platform') {
         additionalQuestion.style.display = 'block';
@@ -31,6 +40,7 @@ function handleMainDropdownChange() {
             <option value="lcl-vendor-portal">LCL Vendor Portal</option>
             <option value="backup-contacts">Backup Contacts</option>
         `;
+        // Append the “Not sure” text just once
         const notSureText = document.createElement('p');
         notSureText.innerHTML = 'Not sure which one? <a href="#" onclick="showUserGuides()">Click here to find out.</a>';
         additionalQuestion.appendChild(notSureText);
@@ -72,8 +82,9 @@ function showSteps(stepType) {
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('additional-question').style.display = 'none';
     console.log('Showing steps for:', stepType);
-    // Add logic to display steps based on stepType
-    showStep(1);
+    // Reset current step if needed
+    currentStep = 1;
+    showStep(currentStep);
 }
 
 function showEmailTemplates() {
@@ -82,7 +93,6 @@ function showEmailTemplates() {
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('additional-question').style.display = 'none';
     console.log('Showing email templates');
-    // Add logic to display email templates
     showStep(1);
 }
 
@@ -92,7 +102,6 @@ function showUserGuides() {
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('additional-question').style.display = 'none';
     console.log('Showing user guides');
-    // Add logic to display user guides
     showStep(1);
 }
 
@@ -100,8 +109,7 @@ function showStep(step) {
     console.log('Showing step:', step);
     for (let i = 1; i <= 3; i++) {
         document.getElementById(`step-${i}`).style.display = i === step ? 'block' : 'none';
-        document.getElementById(`check-${i}`).checked = false; // Uncheck the checklist item
-        if (i === step) document.getElementById(`check-${i}`).checked = true; // Check the current step
+        document.getElementById(`check-${i}`).checked = (i === step);
     }
 }
 
@@ -123,7 +131,6 @@ function goBack() {
     document.getElementById('main-screen').style.display = 'block';
     document.getElementById('steps-page').style.display = 'none';
     document.getElementById('main-dropdown').value = '';
-    document.getElementById('additional-dropdown').value = '';
     document.getElementById('additional-question').style.display = 'none';
 }
 
