@@ -12,10 +12,14 @@
 
     <!-- Course Intro Page -->
     <div id="course-intro" class="center-screen" style="display: none;">
-      <h2>Training Course</h2>
-      <p>Have you completed the training course?</p>
-      <button onclick="courseCompletedYes()">Yes</button>
-      <button onclick="courseCompletedNo()">No</button>
+      <div class="course-intro-content">
+        <h2>Training Course</h2>
+        <p>Have you already completed the video training course?</p>
+        <div class="intro-buttons">
+          <button onclick="courseCompletedYes()">Yes, I've completed it</button>
+          <button onclick="courseCompletedNo()">No, take me to the course</button>
+        </div>
+      </div>
     </div>
 
     <!-- Training Video Page -->
@@ -55,8 +59,13 @@
           <option value="">Select an option</option>
         </select>
       </div>
+      <!-- New Button: Revisit Video Training Course -->
+      <div class="redo-course">
+        <button onclick="redoTrainingCourse()">Rewatch Training Course Videos</button>
+      </div>
     </div>
 
+    <!-- (Existing Steps & Email Templates pages remain unchanged below) -->
     <!-- Cat-themed Steps Page -->
     <div id="steps-page" style="display: none;">
       <button onclick="goBack()" class="back-button">Back</button>

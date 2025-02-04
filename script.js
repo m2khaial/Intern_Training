@@ -41,6 +41,16 @@ function init() {
     document.getElementById("training-video-page").style.display = "none";
     document.getElementById("main-screen").style.display = "block";
   }
+  // New Function: Redo (Rewatch) the Training Course Videos
+  function redoTrainingCourse() {
+    // Show video training page and reset progress
+    document.getElementById("main-screen").style.display = "none";
+    document.getElementById("training-video-page").style.display = "block";
+    currentVideo = 1;
+    updateVideoProgress();
+    document.getElementById("next-video-button").style.display = "inline-block";
+    document.getElementById("complete-course-button").style.display = "none";
+  }
   
   // Static Training Page and Steps Logic (progress saved during session only)
   let currentStep = 1;
