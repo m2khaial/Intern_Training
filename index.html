@@ -9,7 +9,34 @@
 <body>
   <div class="container">
     <h1>Training Website</h1>
-    <div id="main-screen" class="center-screen">
+
+    <!-- Course Intro Page -->
+    <div id="course-intro" class="center-screen" style="display: none;">
+      <h2>Training Course</h2>
+      <p>Have you completed the training course?</p>
+      <button onclick="courseCompletedYes()">Yes</button>
+      <button onclick="courseCompletedNo()">No</button>
+    </div>
+
+    <!-- Training Video Page -->
+    <div id="training-video-page" style="display: none;">
+      <h2>Training Course Videos</h2>
+      <div class="video-container">
+        <!-- Placeholder video embed -->
+        <iframe id="video-frame" width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <!-- Video Progress Bar -->
+      <div id="video-progress-container" class="progress-container">
+        <div id="video-progress-bar" class="progress-bar"></div>
+      </div>
+      <div class="video-controls">
+        <button id="next-video-button" onclick="nextVideo()">Next Video</button>
+        <button id="complete-course-button" style="display: none;" onclick="completeCourse()">Mark Course as Completed</button>
+      </div>
+    </div>
+
+    <!-- Static Training Page (Dropdowns & Others) -->
+    <div id="main-screen" class="center-screen" style="display: none;">
       <label for="main-dropdown">What do you need help with?</label>
       <select id="main-dropdown" onchange="handleMainDropdownChange()">
         <option value="">Select an option</option>
@@ -156,7 +183,7 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 
   <script src="script.js"></script>
