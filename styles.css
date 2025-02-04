@@ -186,25 +186,10 @@ button:hover, select:hover {
         left: 10px;
     }
 }
+
 #additional-question {
     margin-top: 20px;
-  }
-  
-/* Progress Bar Styles */
-.progress-container {
-    width: 100%;
-    background-color: #ddd;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-  
-  .progress-bar {
-    height: 20px;
-    width: 0;
-    background-color: #667eea;
-    transition: width 0.5s ease;
-  }
+}
 
 /* Progress Bar Styles */
 .progress-container {
@@ -213,21 +198,42 @@ button:hover, select:hover {
     border-radius: 20px;
     margin-bottom: 20px;
     overflow: hidden;
-  }
-  .progress-bar {
+}
+
+.progress-bar {
     height: 20px;
     width: 0;
     background-color: #667eea;
     transition: width 0.5s ease;
-  }
-  
-  /* Video container styling */
-  .video-container {
+}
+
+/* Video Container Styling */
+.video-container {
     text-align: center;
     margin: 20px 0;
-  }
-  .video-controls {
+}
+
+.video-controls {
     text-align: center;
     margin-top: 10px;
-  }
-  
+}
+
+/* Course Intro Page Styling */
+#course-intro {
+    text-align: center;
+}
+
+#course-intro h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#course-intro p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+#course-intro button {
+    margin: 0 10px;
+    padding: 12px 20px;
+}

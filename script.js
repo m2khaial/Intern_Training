@@ -1,26 +1,19 @@
-// Initialization: Check local storage for course progress
+// Initialization: Always show the course intro page on load.
 function init() {
-    if (localStorage.getItem("courseCompleted") === "true") {
-      // Course is complete; show static training page (dropdowns)
-      document.getElementById("main-screen").style.display = "block";
-      document.getElementById("course-intro").style.display = "none";
-      document.getElementById("training-video-page").style.display = "none";
-    } else {
-      // Show course intro page
-      document.getElementById("course-intro").style.display = "block";
-      document.getElementById("main-screen").style.display = "none";
-      document.getElementById("training-video-page").style.display = "none";
-    }
+    document.getElementById("course-intro").style.display = "block";
+    document.getElementById("main-screen").style.display = "none";
+    document.getElementById("training-video-page").style.display = "none";
   }
   window.onload = init;
   
   // Course Intro Functions
   function courseCompletedYes() {
-    localStorage.setItem("courseCompleted", "true");
+    // User indicates they have completed the course
     document.getElementById("course-intro").style.display = "none";
     document.getElementById("main-screen").style.display = "block";
   }
   function courseCompletedNo() {
+    // User indicates they have NOT completed the course
     document.getElementById("course-intro").style.display = "none";
     document.getElementById("training-video-page").style.display = "block";
     currentVideo = 1;
@@ -45,12 +38,11 @@ function init() {
     document.getElementById("video-progress-bar").style.width = progress + "%";
   }
   function completeCourse() {
-    localStorage.setItem("courseCompleted", "true");
     document.getElementById("training-video-page").style.display = "none";
     document.getElementById("main-screen").style.display = "block";
   }
   
-  // Existing static training page and steps logic remain unchanged below
+  // Static Training Page and Steps Logic (progress saved during session only)
   let currentStep = 1;
   let currentDogStep = 1;
   let completedCatSteps = [false, false, false];
@@ -175,7 +167,7 @@ function init() {
     showSteps('user-guides');
   }
   
-  // Cat-themed Steps
+  // Cat-themed Steps Functions
   function showStep(step) {
     if (!completedCatSteps[step - 1]) {
       completedCatSteps[step - 1] = true;
@@ -211,7 +203,7 @@ function init() {
     completedCatSteps = [false, false, false];
   }
   
-  // Dog-themed Steps
+  // Dog-themed Steps Functions
   function showDogStep(step) {
     if (!completedDogSteps[step - 1]) {
       completedDogSteps[step - 1] = true;
@@ -246,7 +238,7 @@ function init() {
     completedDogSteps = [false, false, false];
   }
   
-  // Email Templates
+  // Email Templates Functions
   function showEmailTemplate(templateNumber) {
     const templates = document.getElementsByClassName('email-template');
     for (let i = 0; i < templates.length; i++) {
