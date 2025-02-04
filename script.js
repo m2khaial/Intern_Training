@@ -1,16 +1,18 @@
+// Global variables for current step and progress tracking
 let currentStep = 1;
 let currentDogStep = 1;
+let completedCatSteps = [false, false, false];
+let completedDogSteps = [false, false, false];
 
 function handleMainDropdownChange() {
   const mainDropdown = document.getElementById('main-dropdown');
   const additionalQuestion = document.getElementById('additional-question');
-  const stepsPage = document.getElementById('steps-page');
   
   console.log('Main dropdown changed:', mainDropdown.value);
 
   // Hide all pages by default
   additionalQuestion.style.display = 'none';
-  stepsPage.style.display = 'none';
+  document.getElementById('steps-page').style.display = 'none';
   document.getElementById('steps-page-dogs').style.display = 'none';
   document.getElementById('email-templates-page').style.display = 'none';
   document.getElementById('main-screen').style.display = 'block';
@@ -89,6 +91,8 @@ function showSteps(stepType) {
   document.getElementById('steps-page-dogs').style.display = 'none';
   document.getElementById('email-templates-page').style.display = 'none';
   console.log('Showing steps for:', stepType);
+  // Reset progress for cat steps
+  completedCatSteps = [false, false, false];
   currentStep = 1;
   showStep(currentStep);
 }
@@ -101,6 +105,8 @@ function showStepsDogs(stepType) {
   document.getElementById('steps-page').style.display = 'none';
   document.getElementById('email-templates-page').style.display = 'none';
   console.log('Showing dog steps for:', stepType);
+  // Reset progress for dog steps
+  completedDogSteps = [false, false, false];
   currentDogStep = 1;
   showDogStep(currentDogStep);
 }
@@ -112,7 +118,7 @@ function showEmailTemplates() {
   document.getElementById('steps-page').style.display = 'none';
   document.getElementById('steps-page-dogs').style.display = 'none';
   console.log('Showing email templates');
-  // Optionally display the first email template by default
+  // Display the first email template by default
   showEmailTemplate(1);
 }
 
@@ -122,61 +128,32 @@ function showUserGuides() {
   showSteps('user-guides');
 }
 
+// For cat-themed steps
 function showStep(step) {
-  console.log('Showing cat step:', step);
-  for (let i = 1; i <= 3; i++) {
-      document.getElementById(`step-${i}`).style.display = (i === step) ? 'block' : 'none';
-      document.getElementById(`check-${i}`).checked = (i === step);
+  if (!completedCatSteps[step - 1]) {
+    completedCatSteps[step - 1] = true;
   }
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById(`step-${i}`).style.display = (i === step) ? 'block' : 'none';
+    document.getElementById(`check-${i}`).checked = completedCatSteps[i - 1];
+  }
+  // Update progress bar width
+  let completedCount = completedCatSteps.filter(val => val).length;
+  document.getElementById('progress-bar').style.width = ((completedCount / 3) * 100) + '%';
 }
 
 function nextStep() {
   if (currentStep < 3) {
-      currentStep++;
-      showStep(currentStep);
+    currentStep++;
+    showStep(currentStep);
   }
 }
 
 function prevStep() {
   if (currentStep > 1) {
-      currentStep--;
-      showStep(currentStep);
+    currentStep--;
+    showStep(currentStep);
   }
-}
-
-function goBack() {
-  document.getElementById('main-screen').style.display = 'block';
-  document.getElementById('steps-page').style.display = 'none';
-  document.getElementById('main-dropdown').value = '';
-  document.getElementById('additional-question').style.display = 'none';
-}
-
-function showDogStep(step) {
-  console.log('Showing dog step:', step);
-  for (let i = 1; i <= 3; i++) {
-      document.getElementById(`dog-step-${i}`).style.display = (i === step) ? 'block' : 'none';
-      document.getElementById(`dog-check-${i}`).checked = (i === step);
-  }
-}
-
-function nextDogStep() {
-  if (currentDogStep < 3) {
-      currentDogStep++;
-      showDogStep(currentDogStep);
-  }
-}
-
-function prevDogStep() {
-  if (currentDogStep > 1) {
-      currentDogStep--;
-      showDogStep(currentDogStep);
-  }
-}
-
-function goBackFromDogs() {
-  document.getElementById('main-screen').style.display = 'block';
-  document.getElementById('steps-page-dogs').style.display = 'none';
-  document.getElementById('main-dropdown').value = '';
 }
 
 function goToStep(step) {
@@ -184,19 +161,70 @@ function goToStep(step) {
   showStep(step);
 }
 
+function goBack() {
+  document.getElementById('main-screen').style.display = 'block';
+  document.getElementById('steps-page').style.display = 'none';
+  document.getElementById('main-dropdown').value = '';
+  document.getElementById('additional-question').style.display = 'none';
+  // Reset cat steps progress when leaving the page
+  completedCatSteps = [false, false, false];
+}
+
+// For dog-themed steps
+function showDogStep(step) {
+  if (!completedDogSteps[step - 1]) {
+    completedDogSteps[step - 1] = true;
+  }
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById(`dog-step-${i}`).style.display = (i === step) ? 'block' : 'none';
+    document.getElementById(`dog-check-${i}`).checked = completedDogSteps[i - 1];
+  }
+  // Update dog progress bar width
+  let completedCount = completedDogSteps.filter(val => val).length;
+  document.getElementById('progress-bar-dogs').style.width = ((completedCount / 3) * 100) + '%';
+}
+
+function nextDogStep() {
+  if (currentDogStep < 3) {
+    currentDogStep++;
+    showDogStep(currentDogStep);
+  }
+}
+
+function prevDogStep() {
+  if (currentDogStep > 1) {
+    currentDogStep--;
+    showDogStep(currentDogStep);
+  }
+}
+
 function goToDogStep(step) {
   currentDogStep = step;
   showDogStep(step);
 }
 
+function goBackFromDogs() {
+  document.getElementById('main-screen').style.display = 'block';
+  document.getElementById('steps-page-dogs').style.display = 'none';
+  document.getElementById('main-dropdown').value = '';
+  completedDogSteps = [false, false, false];
+}
+
+// Email Templates: Show selected template
 function showEmailTemplate(templateNumber) {
-  // Hide all email templates first
   const templates = document.getElementsByClassName('email-template');
   for (let i = 0; i < templates.length; i++) {
-      templates[i].style.display = 'none';
+    templates[i].style.display = 'none';
   }
-  // Show the selected template
   document.getElementById(`email-template-${templateNumber}`).style.display = 'block';
+}
+
+// Copy email template text to clipboard
+function copyEmailTemplate(templateId) {
+  const templateContent = document.getElementById(templateId).innerText;
+  navigator.clipboard.writeText(templateContent).then(() => {
+    alert('Email template copied to clipboard!');
+  });
 }
 
 function goBackFromEmailTemplates() {

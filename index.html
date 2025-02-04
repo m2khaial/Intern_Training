@@ -21,7 +21,7 @@
         <option value="portal-issues-general">Portal Issues General</option>
         <option value="manual-appointment-c3">Manual Adding Appointment for Supplier on C3</option>
       </select>
-      <!-- Child dropdown placed inside main-screen for immediate visibility -->
+      <!-- Child dropdown placed immediately after the main dropdown -->
       <div id="additional-question" style="display: none; margin-top: 20px;">
         <label for="additional-dropdown"></label>
         <select id="additional-dropdown" onchange="handleAdditionalDropdownChange()">
@@ -33,6 +33,10 @@
     <!-- Cat-themed Steps Page -->
     <div id="steps-page" style="display: none;">
       <button onclick="goBack()" class="back-button">Back</button>
+      <!-- Progress Bar -->
+      <div id="progress-container" class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
       <div class="checklist">
         <h3>Checklist</h3>
         <ul>
@@ -70,6 +74,10 @@
     <!-- Dog-themed Steps Page (for Manual Appointment) -->
     <div id="steps-page-dogs" style="display: none;">
       <button onclick="goBackFromDogs()" class="back-button">Back</button>
+      <!-- Progress Bar -->
+      <div id="progress-container-dogs" class="progress-container">
+        <div id="progress-bar-dogs" class="progress-bar"></div>
+      </div>
       <div class="checklist">
         <h3>Checklist</h3>
         <ul>
@@ -116,23 +124,39 @@
       <div class="email-content">
         <div id="email-template-1" class="email-template" style="display: none;">
           <h2>Email Template 1</h2>
-          <p>Content for Email Template 1 goes here...</p>
+          <p><strong>Subject:</strong> Welcome to the Team!</p>
+          <p>Dear Employee,</p>
+          <p>We are thrilled to welcome you aboard. Please review the onboarding guidelines and let us know if you have any questions.</p>
+          <p>Regards,<br>HR Department</p>
+          <button onclick="copyEmailTemplate('email-template-1')">Copy Template</button>
         </div>
         <div id="email-template-2" class="email-template" style="display: none;">
           <h2>Email Template 2</h2>
-          <p>Content for Email Template 2 goes here...</p>
+          <p><strong>Subject:</strong> Your Access Credentials</p>
+          <p>Hi,</p>
+          <p>Your account has been created. Please log in using the credentials provided and update your password immediately.</p>
+          <p>Best,<br>IT Support</p>
+          <button onclick="copyEmailTemplate('email-template-2')">Copy Template</button>
         </div>
         <div id="email-template-3" class="email-template" style="display: none;">
           <h2>Email Template 3</h2>
-          <p>Content for Email Template 3 goes here...</p>
+          <p><strong>Subject:</strong> Meeting Invitation</p>
+          <p>Hello,</p>
+          <p>You are invited to our weekly sync-up meeting. Please confirm your attendance.</p>
+          <p>Thanks,<br>Team Lead</p>
+          <button onclick="copyEmailTemplate('email-template-3')">Copy Template</button>
         </div>
         <div id="email-template-4" class="email-template" style="display: none;">
           <h2>Email Template 4</h2>
-          <p>Content for Email Template 4 goes here...</p>
+          <p><strong>Subject:</strong> Request for Information</p>
+          <p>Dear Colleague,</p>
+          <p>Please provide the required documentation at your earliest convenience.</p>
+          <p>Regards,<br>Admin Team</p>
+          <button onclick="copyEmailTemplate('email-template-4')">Copy Template</button>
         </div>
       </div>
     </div>
-
+    
   </div>
 
   <script src="script.js"></script>

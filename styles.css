@@ -190,3 +190,19 @@ button:hover, select:hover {
     margin-top: 20px;
   }
   
+/* Progress Bar Styles */
+.progress-container {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    height: 20px;
+    width: 0;
+    background-color: #667eea;
+    transition: width 0.5s ease;
+  }
+  
