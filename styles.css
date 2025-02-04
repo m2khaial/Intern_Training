@@ -238,7 +238,7 @@ button:hover, select:hover {
     padding: 12px 20px;
 }
 
-#redo-course-btn {
+#redo-course button {
     text-align: center;
     margin: 0 10px;
     padding: 12px 20px;
