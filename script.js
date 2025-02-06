@@ -272,13 +272,13 @@ function generateTempPassword() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let password = "";
   for (let i = 0; i < 7; i++) {
-      password += characters.charAt(Math.floor(Math.random() * characters.length));
+    password += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return password;
 }
 
 // Function to copy email template while preserving formatting
-function copyEmailTemplate(templateId) {
+async function copyEmailTemplate(templateId) {
   let templateElement = document.getElementById(templateId);
   let templateContent = templateElement.cloneNode(true); // Clone to avoid modifying the actual template
 
@@ -289,17 +289,24 @@ function copyEmailTemplate(templateId) {
   // Replace the placeholder {{TEMP_PASSWORD}} with a generated password
   let tempPasswordElement = templateContent.querySelector("#temp-password");
   if (tempPasswordElement) {
-      tempPasswordElement.textContent = generateTempPassword();
+    tempPasswordElement.textContent = generateTempPassword();
   }
 
-  // Copy the email content while preserving formatting
-  let range = document.createRange();
-  range.selectNodeContents(templateContent);
-  let selection = window.getSelection();
-  selection.removeAllRanges();
-  selection.addRange(range);
-  document.execCommand("copy");
+  // Convert content to HTML for copying
+  let htmlContent = templateContent.innerHTML;
 
-  alert("Email template copied to clipboard with formatting!");
+  try {
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        "text/html": new Blob([htmlContent], { type: "text/html" }),
+        "text/plain": new Blob([templateContent.innerText], { type: "text/plain" })
+      })
+    ]);
+    alert("Email template copied to clipboard with formatting!");
+  } catch (err) {
+    alert("Failed to copy email. Try using a different browser.");
+    console.error("Copy failed:", err);
+  }
 }
+
 
