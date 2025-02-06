@@ -267,4 +267,39 @@ function init() {
     document.getElementById('email-templates-page').style.display = 'none';
     document.getElementById('main-dropdown').value = '';
   }
-  
+// Function to generate a 7-character random password
+function generateTempPassword() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let password = "";
+  for (let i = 0; i < 7; i++) {
+      password += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return password;
+}
+
+// Function to copy email template while preserving formatting
+function copyEmailTemplate(templateId) {
+  let templateElement = document.getElementById(templateId);
+  let templateContent = templateElement.cloneNode(true); // Clone to avoid modifying the actual template
+
+  // Remove the template title so it doesn't get copied
+  let title = templateContent.querySelector("h2");
+  if (title) title.remove();
+
+  // Replace the placeholder {{TEMP_PASSWORD}} with a generated password
+  let tempPasswordElement = templateContent.querySelector("#temp-password");
+  if (tempPasswordElement) {
+      tempPasswordElement.textContent = generateTempPassword();
+  }
+
+  // Copy the email content while preserving formatting
+  let range = document.createRange();
+  range.selectNodeContents(templateContent);
+  let selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+  document.execCommand("copy");
+
+  alert("Email template copied to clipboard with formatting!");
+}
+

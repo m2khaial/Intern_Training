@@ -160,12 +160,39 @@
       <div class="email-content">
         <div id="email-template-1" class="email-template" style="display: none;">
           <h2>Email Template 1</h2>
-          <p><strong>Subject:</strong> Welcome to the Team!</p>
-          <p>Dear Employee,</p>
-          <p>We are thrilled to welcome you aboard. Please review the onboarding guidelines and let us know if you have any questions.</p>
-          <p>Regards,<br>HR Department</p>
+        
+          <p>Below are your credentials for accessing the <strong>LCL Supply Chain Vendor Portal</strong>. The <mark>highlighted username</mark> has been assigned as a Super User which enables the Contact Management page.</p>
+        
+          <p><strong>Portal URL:</strong> <a href="https://scvendorportal.loblaw.ca/" target="_blank">https://scvendorportal.loblaw.ca/</a></p>
+        
+          <table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%;">
+            <tr>
+              <th style="background-color: #f0f0f0;">Username</th>
+              <th style="background-color: #f0f0f0;">Temporary Password</th>
+            </tr>
+            <tr>
+              <td><mark>your.username@example.com</mark></td>
+              <td><span id="temp-password" style="background-color: yellow;">{{TEMP_PASSWORD}}</span></td>
+            </tr>
+          </table>
+        
+          <p>For security purposes, please update your temporary password immediately after logging in by selecting <strong>Change Password</strong> under Your Vendor Profile.</p>
+        
+          <p>A user guide is attached to this email for your reference. Instructions for the <strong>Business Closures/Vendor Infractions</strong> page can be found under the <strong>Help & Information</strong> section on the portal.</p>
+        
+          <p>If additional team members require access, kindly provide their names and email addresses, and credentials will be issued promptly.</p>
+        
+          <p>If you need any assistance, please don’t hesitate to reach out.</p>
+        
+          <p>Kind Regards,</p>
+        
+          <p><strong>Your Name</strong><br>
+             Your Position<br>
+             LCL Supply Chain Support</p>
+        
           <button onclick="copyEmailTemplate('email-template-1')">Copy Template</button>
         </div>
+               
         <div id="email-template-2" class="email-template" style="display: none;">
           <h2>Email Template 2</h2>
           <p><strong>Subject:</strong> Your Access Credentials</p>
