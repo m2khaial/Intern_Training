@@ -60,81 +60,40 @@ function init() {
   
   function handleMainDropdownChange() {
     const mainDropdown = document.getElementById('main-dropdown');
-    const additionalQuestion = document.getElementById('additional-question');
+    const powerbiDropdown = document.getElementById('powerbi-dropdown');
     
-    console.log('Main dropdown changed:', mainDropdown.value);
-  
-    // Hide all pages by default
-    additionalQuestion.style.display = 'none';
+    // Hide everything first
+    powerbiDropdown.style.display = 'none';
     document.getElementById('steps-page').style.display = 'none';
-    document.getElementById('steps-page-dogs').style.display = 'none';
-    document.getElementById('email-templates-page').style.display = 'none';
-    document.getElementById('main-screen').style.display = 'block';
   
-    // Reset additionalQuestion content
-    additionalQuestion.innerHTML = `
-        <label for="additional-dropdown"></label>
-        <select id="additional-dropdown" onchange="handleAdditionalDropdownChange()">
-            <option value="">Select an option</option>
-        </select>
-    `;
-  
-    if (mainDropdown.value === 'familiarize-platform') {
-        additionalQuestion.style.display = 'block';
-        additionalQuestion.querySelector('label').textContent = 'Which platform?';
-        additionalQuestion.querySelector('select').innerHTML = `
-            <option value="">Select an option</option>
-            <option value="c3">C3</option>
-            <option value="lcl-vendor-portal">LCL Vendor Portal</option>
-            <option value="sharepoint">SharePoint</option>
-        `;
-    } else if (mainDropdown.value === 'email-templates') {
-        showEmailTemplates();
-    } else if (mainDropdown.value === 'adding-new-contact') {
-        additionalQuestion.style.display = 'block';
-        additionalQuestion.querySelector('label').textContent = 'Which platform?';
-        additionalQuestion.querySelector('select').innerHTML = `
-            <option value="">Select an option</option>
-            <option value="c3">C3</option>
-            <option value="lcl-vendor-portal">LCL Vendor Portal</option>
-            <option value="backup-contacts">Backup Contacts</option>
-        `;
-        const notSureText = document.createElement('p');
-        notSureText.innerHTML = 'Not sure which one? <a href="#" onclick="showUserGuides()">Click here to find out.</a>';
-        additionalQuestion.appendChild(notSureText);
+    if (mainDropdown.value === 'email-templates') {
+      showEmailTemplates();
+    } else if (mainDropdown.value === 'powerbi-reports') {
+      powerbiDropdown.style.display = 'block'; // Show Power BI dropdown
+    } else if (mainDropdown.value === 'daily-pdrp') {
+      showSteps('daily-pdrp');
     } else if (mainDropdown.value === 'offshore-priority-workbook') {
-        showSteps('offshore-priority-workbook');
+      showSteps('offshore-priority-workbook');
     } else if (mainDropdown.value === 'vendor-infractions') {
-        showSteps('vendor-infractions');
-    } else if (mainDropdown.value === 'portal-issues-general') {
-        additionalQuestion.style.display = 'block';
-        additionalQuestion.querySelector('label').textContent = 'What issue are you facing?';
-        additionalQuestion.querySelector('select').innerHTML = `
-            <option value="">Select an option</option>
-            <option value="lockout">Lockout</option>
-            <option value="access-roles">Access Roles</option>
-            <option value="removing-user">Removing User</option>
-            <option value="verifying-access">Verifying Access</option>
-        `;
-    } else if (mainDropdown.value === 'manual-appointment-c3') {
-        showStepsDogs('manual-appointment-c3');
-    }
-  }
-  
-  function handleAdditionalDropdownChange() {
-    const additionalDropdown = document.getElementById('additional-dropdown');
-    const mainDropdown = document.getElementById('main-dropdown');
-  
-    console.log('Additional dropdown changed:', additionalDropdown.value);
-  
-    if (mainDropdown.value === 'familiarize-platform') {
-        showSteps(`familiarize-${additionalDropdown.value}`);
+      showSteps('vendor-infractions');
     } else if (mainDropdown.value === 'adding-new-contact') {
-        showSteps(`add-contact-${additionalDropdown.value}`);
-    } else if (mainDropdown.value === 'portal-issues-general') {
-        showSteps(`portal-issue-${additionalDropdown.value}`);
+      showSteps('adding-new-contact');
+    } else if (mainDropdown.value === 'manual-appointment-c3') {
+      showSteps('manual-appointment-c3');
+    } else if (mainDropdown.value === 'familiarize-platform') {
+      showSteps('familiarize-platform');
     }
   }
+  
+  function handlePowerBIDropdownChange() {
+    const powerbiSelect = document.getElementById('powerbi-select');
+    if (powerbiSelect.value === 'holes-report') {
+      showSteps('holes-report');
+    } else if (powerbiSelect.value === 'vendor-delivered-report') {
+      showSteps('vendor-delivered-report');
+    }
+  }
+  
   
   function showSteps(stepType) {
     const stepsPage = document.getElementById('steps-page');
@@ -147,19 +106,6 @@ function init() {
     completedCatSteps = [false, false, false];
     currentStep = 1;
     showStep(currentStep);
-  }
-  
-  function showStepsDogs(stepType) {
-    const stepsPageDogs = document.getElementById('steps-page-dogs');
-    stepsPageDogs.style.display = 'block';
-    document.getElementById('main-screen').style.display = 'none';
-    document.getElementById('additional-question').style.display = 'none';
-    document.getElementById('steps-page').style.display = 'none';
-    document.getElementById('email-templates-page').style.display = 'none';
-    console.log('Showing dog steps for:', stepType);
-    completedDogSteps = [false, false, false];
-    currentDogStep = 1;
-    showDogStep(currentDogStep);
   }
   
   function showEmailTemplates() {
@@ -280,33 +226,33 @@ function generateTempPassword() {
 // Function to copy email template while preserving formatting
 async function copyEmailTemplate(templateId) {
   let templateElement = document.getElementById(templateId);
-  let templateContent = templateElement.cloneNode(true); // Clone to avoid modifying the actual template
+  let templateClone = templateElement.cloneNode(true); // Clone to prevent modifying actual template
 
-  // Remove the template title so it doesn't get copied
-  let title = templateContent.querySelector("h2");
+  // Remove elements that shouldn't be copied
+  let title = templateClone.querySelector("h2"); // Remove "Email Template X" header
   if (title) title.remove();
+  let button = templateClone.querySelector("button"); // Remove "Copy Template" button
+  if (button) button.remove();
 
   // Replace the placeholder {{TEMP_PASSWORD}} with a generated password
-  let tempPasswordElement = templateContent.querySelector("#temp-password");
+  let tempPasswordElement = templateClone.querySelector("#temp-password");
   if (tempPasswordElement) {
     tempPasswordElement.textContent = generateTempPassword();
   }
 
-  // Convert content to HTML for copying
-  let htmlContent = templateContent.innerHTML;
+  // Convert content to clean HTML (preserving formatting)
+  let htmlContent = templateClone.innerHTML.trim();
 
   try {
     await navigator.clipboard.write([
       new ClipboardItem({
         "text/html": new Blob([htmlContent], { type: "text/html" }),
-        "text/plain": new Blob([templateContent.innerText], { type: "text/plain" })
+        "text/plain": new Blob([templateClone.innerText.trim()], { type: "text/plain" }) // Plain text fallback
       })
     ]);
-    alert("Email template copied to clipboard with formatting!");
+    alert("Email template copied to clipboard!");
   } catch (err) {
-    alert("Failed to copy email. Try using a different browser.");
+    alert("Failed to copy email. Please try a different browser.");
     console.error("Copy failed:", err);
   }
 }
-
-

@@ -42,28 +42,28 @@
     <!-- Static Training Page (Dropdowns & Others) -->
     <div id="main-screen" class="center-screen" style="display: none;">
       <label for="main-dropdown">What do you need help with?</label>
-      <select id="main-dropdown" onchange="handleMainDropdownChange()">
-        <option value="">Select an option</option>
-        <option value="familiarize-platform">Familiarize with Platform</option>
-        <option value="email-templates">Email Templates</option>
-        <option value="adding-new-contact">Adding a New Contact</option>
-        <option value="offshore-priority-workbook">Offshore Priority Workbook Updates</option>
-        <option value="vendor-infractions">Vendor Infractions</option>
-        <option value="portal-issues-general">Portal Issues General</option>
-        <option value="manual-appointment-c3">Manual Adding Appointment for Supplier on C3</option>
-      </select>
-      <!-- Child dropdown placed immediately after the main dropdown -->
-      <div id="additional-question" style="display: none; margin-top: 20px;">
-        <label for="additional-dropdown"></label>
-        <select id="additional-dropdown" onchange="handleAdditionalDropdownChange()">
+        <select id="main-dropdown" onchange="handleMainDropdownChange()">
           <option value="">Select an option</option>
+          <option value="email-templates">Email Templates</option>
+          <option value="powerbi-reports">Power BI Reports</option>
+          <option value="daily-pdrp">Daily Past Due Ready and Planned Report</option>
+          <option value="offshore-priority-workbook">Offshore Priority Workbook Updates</option>
+          <option value="portal-issues-general">Portal Issues General</option>
+          <option value="vendor-infractions">Vendor Infractions</option>
+          <option value="adding-new-contact">Adding a New Contact</option>
+          <option value="manual-appointment-c3">Manual Adding Appointment for Supplier on C3</option>
+          <option value="familiarize-platform">Familiarize with Platform</option>
         </select>
-      </div>
-      <!-- New Button: Revisit Video Training Course -->
-      <div class="redo-course">
-        <button onclick="redoTrainingCourse()">Rewatch Training Course Videos</button>
-      </div>
-    </div>
+
+        <!-- Child dropdown for Power BI Reports -->
+        <div id="powerbi-dropdown" style="display: none; margin-top: 20px;">
+          <label for="powerbi-select">Which Power BI report?</label>
+          <select id="powerbi-select" onchange="handlePowerBIDropdownChange()">
+            <option value="">Select an option</option>
+            <option value="holes-report">Holes Report</option>
+            <option value="vendor-delivered-report">Vendor Delivered Report</option>
+          </select>
+        </div>
 
     <!-- (Existing Steps & Email Templates pages remain unchanged below) -->
     <!-- Cat-themed Steps Page -->
@@ -178,7 +178,7 @@
         
           <p>For security purposes, please update your temporary password immediately after logging in by selecting <strong>Change Password</strong> under Your Vendor Profile.</p>
         
-          <p>A user guide is attached to this email for your reference. Instructions for the <mark><strong>Business Closures/Vendor Infractions</strong> page can be found under the <strong>Help & Information</strong> section on the portal.</mark></p>
+          <p>A user guide is attached to this email for your reference. Instructions for the <strong>Business Closures/Vendor Infractions</strong> page can be found under the <strong>Help & Information</strong> section on the portal.</p>
         
           <p>If additional team members require access, kindly provide their names and email addresses, and credentials will be issued promptly.</p>
         
@@ -186,8 +186,13 @@
         
           <p>Kind Regards,</p>
         
+          <p><strong>Your Name</strong><br>
+             Your Position<br>
+             LCL Supply Chain Support</p>
+        
           <button onclick="copyEmailTemplate('email-template-1')">Copy Template</button>
         </div>
+        
                
         <div id="email-template-2" class="email-template" style="display: none;">
           <h2>Email Template 2</h2>
