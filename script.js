@@ -186,29 +186,36 @@ function showEmailTemplate(templateNumber) {
   }
   document.getElementById(`email-template-${templateNumber}`).style.display = 'block';
 }
-function copyEmailTemplate(templateId) {
+async function copyEmailTemplate(templateId) {
   let templateElement = document.getElementById(templateId);
-  let templateClone = templateElement.cloneNode(true);
-  let title = templateClone.querySelector("h2");
+  let templateClone = templateElement.cloneNode(true); // Clone to prevent modifying actual template
+
+  // Remove elements that shouldn't be copied
+  let title = templateClone.querySelector("h2"); // Remove "Email Template X" header
   if (title) title.remove();
-  let button = templateClone.querySelector("button");
+  let button = templateClone.querySelector("button"); // Remove "Copy Template" button
   if (button) button.remove();
+
+  // Replace the placeholder {{TEMP_PASSWORD}} with a generated password
   let tempPasswordElement = templateClone.querySelector("#temp-password");
   if (tempPasswordElement) {
     tempPasswordElement.textContent = generateTempPassword();
   }
+
+  // Convert content to clean HTML (preserving formatting)
   let htmlContent = templateClone.innerHTML.trim();
-  navigator.clipboard.write([
-    new ClipboardItem({
-      "text/html": new Blob([htmlContent], { type: "text/html" }),
-      "text/plain": new Blob([templateClone.innerText.trim()], { type: "text/plain" })
-    })
-  ]).then(() => {
-    alert("Email template copied to clipboard!");
-  }).catch(err => {
+
+  try {
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        "text/html": new Blob([htmlContent], { type: "text/html" })
+      })
+    ]);
+    alert("Email template copied to clipboard with formatting!");
+  } catch (err) {
     alert("Failed to copy email. Please try a different browser.");
     console.error("Copy failed:", err);
-  });
+  }
 }
 function goBackFromEmailTemplates() {
   document.getElementById('main-screen').style.display = 'block';
