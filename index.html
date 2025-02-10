@@ -39,34 +39,46 @@
       </div>
     </div>
 
-    <!-- Static Training Page (Dropdowns & Others) -->
+    <!-- Main Screen (Dropdowns & Others) -->
     <div id="main-screen" class="center-screen" style="display: none;">
       <label for="main-dropdown">What do you need help with?</label>
-        <select id="main-dropdown" onchange="handleMainDropdownChange()">
+      <select id="main-dropdown" onchange="handleMainDropdownChange()">
+        <option value="">Select an option</option>
+        <option value="email-templates">Email Templates</option>
+        <option value="powerbi-reports">Power BI Reports</option>
+        <option value="daily-pdrp">Daily Past Due Ready and Planned Report</option>
+        <option value="offshore-priority-workbook">Offshore Priority Workbook Updates</option>
+        <option value="portal-issues-general">Portal Issues General</option>
+        <option value="vendor-infractions">Vendor Infractions</option>
+        <option value="adding-new-contact">Adding a New Contact</option>
+        <option value="manual-appointment-c3">Manual Adding Appointment for Supplier on C3</option>
+        <option value="familiarize-platform">Familiarize with Platform</option>
+      </select>
+      
+      <!-- Child dropdown for Power BI Reports -->
+      <div id="powerbi-dropdown" style="display: none; margin-top: 20px;">
+        <label for="powerbi-select">Which Power BI report?</label>
+        <select id="powerbi-select" onchange="handlePowerBIDropdownChange()">
           <option value="">Select an option</option>
-          <option value="email-templates">Email Templates</option>
-          <option value="powerbi-reports">Power BI Reports</option>
-          <option value="daily-pdrp">Daily Past Due Ready and Planned Report</option>
-          <option value="offshore-priority-workbook">Offshore Priority Workbook Updates</option>
-          <option value="portal-issues-general">Portal Issues General</option>
-          <option value="vendor-infractions">Vendor Infractions</option>
-          <option value="adding-new-contact">Adding a New Contact</option>
-          <option value="manual-appointment-c3">Manual Adding Appointment for Supplier on C3</option>
-          <option value="familiarize-platform">Familiarize with Platform</option>
+          <option value="holes-report">Holes Report</option>
+          <option value="vendor-delivered-report">Vendor Delivered Report</option>
         </select>
+      </div>
+      
+      <!-- Child dropdown for Portal Issues General -->
+      <div id="portal-issues-dropdown" style="display: none; margin-top: 20px;">
+        <label for="portal-issues-select">What issue are you facing?</label>
+        <select id="portal-issues-select" onchange="handlePortalIssuesDropdownChange()">
+          <option value="">Select an option</option>
+          <option value="lockout">Lockout</option>
+          <option value="access-roles">Access Roles</option>
+          <option value="removing-user">Removing User</option>
+          <option value="verifying-access">Verifying Access</option>
+        </select>
+      </div>
+    </div>
 
-        <!-- Child dropdown for Power BI Reports -->
-        <div id="powerbi-dropdown" style="display: none; margin-top: 20px;">
-          <label for="powerbi-select">Which Power BI report?</label>
-          <select id="powerbi-select" onchange="handlePowerBIDropdownChange()">
-            <option value="">Select an option</option>
-            <option value="holes-report">Holes Report</option>
-            <option value="vendor-delivered-report">Vendor Delivered Report</option>
-          </select>
-        </div>
-
-    <!-- (Existing Steps & Email Templates pages remain unchanged below) -->
-    <!-- Cat-themed Steps Page -->
+    <!-- Steps Page (Cat-themed) -->
     <div id="steps-page" style="display: none;">
       <button onclick="goBack()" class="back-button">Back</button>
       <!-- Progress Bar -->
@@ -107,7 +119,7 @@
       </div>
     </div>
 
-    <!-- Dog-themed Steps Page (for Manual Appointment) -->
+    <!-- Steps Page (Dog-themed) -->
     <div id="steps-page-dogs" style="display: none;">
       <button onclick="goBackFromDogs()" class="back-button">Back</button>
       <!-- Progress Bar -->
@@ -160,11 +172,8 @@
       <div class="email-content">
         <div id="email-template-1" class="email-template" style="display: none;">
           <h2>Email Template 1</h2>
-        
           <p>Below are your credentials for accessing the <strong>LCL Supply Chain Vendor Portal</strong>. The <mark>highlighted username</mark> has been assigned as a Super User which enables the Contact Management page.</p>
-        
           <p><strong>Portal URL:</strong> <a href="https://scvendorportal.loblaw.ca/" target="_blank">https://scvendorportal.loblaw.ca/</a></p>
-        
           <table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%;">
             <tr>
               <th style="background-color: #f0f0f0;">Username</th>
@@ -175,25 +184,14 @@
               <td><span id="temp-password" style="background-color: yellow;">{{TEMP_PASSWORD}}</span></td>
             </tr>
           </table>
-        
           <p>For security purposes, please update your temporary password immediately after logging in by selecting <strong>Change Password</strong> under Your Vendor Profile.</p>
-        
           <p>A user guide is attached to this email for your reference. Instructions for the <strong>Business Closures/Vendor Infractions</strong> page can be found under the <strong>Help & Information</strong> section on the portal.</p>
-        
           <p>If additional team members require access, kindly provide their names and email addresses, and credentials will be issued promptly.</p>
-        
           <p>If you need any assistance, please don’t hesitate to reach out.</p>
-        
           <p>Kind Regards,</p>
-        
-          <p><strong>Your Name</strong><br>
-             Your Position<br>
-             LCL Supply Chain Support</p>
-        
+          <p><strong>Your Name</strong><br>Your Position<br>LCL Supply Chain Support</p>
           <button onclick="copyEmailTemplate('email-template-1')">Copy Template</button>
         </div>
-        
-               
         <div id="email-template-2" class="email-template" style="display: none;">
           <h2>Email Template 2</h2>
           <p><strong>Subject:</strong> Your Access Credentials</p>
