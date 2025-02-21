@@ -280,32 +280,38 @@ function handleMainDropdownChange() {
   const mainDropdown = document.getElementById('main-dropdown');
   const powerbiDropdown = document.getElementById('powerbi-dropdown');
   const portalIssuesDropdown = document.getElementById('portal-issues-dropdown');
-  
-  // Hide all child dropdowns and pages
-  powerbiDropdown.style.display = 'none';
-  portalIssuesDropdown.style.display = 'none';
+
+  // Hide all child dropdowns and content pages first
+  document.querySelectorAll('.child-dropdown').forEach(dropdown => dropdown.style.display = 'none');
   document.getElementById('steps-page').style.display = 'none';
   document.getElementById('steps-page-dogs').style.display = 'none';
   document.getElementById('email-templates-page').style.display = 'none';
-  
+
   // Determine which option was selected and display accordingly.
-  if (mainDropdown.value === 'email-templates') {
-    showEmailTemplates();
-  } else if (mainDropdown.value === 'powerbi-reports') {
-    powerbiDropdown.style.display = 'block';
-  } else if (mainDropdown.value === 'portal-issues-general') {
-    portalIssuesDropdown.style.display = 'block';
-  } else if (
-    mainDropdown.value === 'daily-pdrp' ||
-    mainDropdown.value === 'offshore-priority-workbook' ||
-    mainDropdown.value === 'vendor-infractions' ||
-    mainDropdown.value === 'adding-new-contact' ||
-    mainDropdown.value === 'manual-appointment-c3' ||
-    mainDropdown.value === 'familiarize-platform'
-  ) {
-    showSteps(mainDropdown.value);
+  switch (mainDropdown.value) {
+    case 'email-templates':
+      showEmailTemplates();
+      break;
+    
+    case 'powerbi-reports':
+      powerbiDropdown.style.display = 'block';
+      break;
+    
+    case 'portal-issues-general':
+      portalIssuesDropdown.style.display = 'block';
+      break;
+    
+    case 'daily-pdrp':
+    case 'offshore-priority-workbook':
+    case 'vendor-infractions':
+    case 'adding-new-contact':
+    case 'manual-appointment-c3':
+    case 'familiarize-platform':
+      showSteps(mainDropdown.value);
+      break;
   }
 }
+
 
 function handlePowerBIDropdownChange() {
   const powerbiSelect = document.getElementById('powerbi-select');
