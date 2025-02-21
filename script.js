@@ -1,12 +1,96 @@
-// Initialization: Always show the course intro page on load.
+/*****************************************************
+ * Global Variables and Data Structures
+ *****************************************************/
+let currentSelection = "";  // Stores the current dropdown selection key
+let currentStep = 1;        // Current step index for dynamic steps
+let completedSteps = [];    // Array to track completed steps
+
+// Steps data object mapping each dropdown option to its steps.
+// To add more steps for a specific option, update the corresponding array below.
+const stepsData = {
+  "email-templates": [
+    { title: "Review Email Templates", description: "Review all provided email templates and their guidelines." },
+    { title: "Select Appropriate Template", description: "Choose the email template that fits the current scenario." },
+    { title: "Confirm Details", description: "Ensure the credentials and instructions are correct." }
+  ],
+  "holes-report": [
+    { title: "Access Holes Report", description: "Open the Holes Report in Power BI and verify its update." },
+    { title: "Test Flow", description: "Run the Power Automate flow and observe its execution." },
+    { title: "Verify Sent Emails", description: "Check that all expected emails were sent." }
+  ],
+  "vendor-delivered-report": [
+    { title: "Open Vendor Delivered Report", description: "Access the report and verify the update timestamp." },
+    { title: "Run Flow", description: "Execute the Power Automate flow for vendor delivered scenarios." },
+    { title: "Check Email Log", description: "Confirm that emails have been sent successfully." }
+  ],
+  "daily-pdrp": [
+    { title: "Prepare Export Sheet", description: "Clear data on the Export sheet except for headers." },
+    { title: "Export Data", description: "Export data from SQL Vendor Portal with the current layout." },
+    { title: "Refresh Pivot Table", description: "Refresh the pivot table to update all figures." }
+  ],
+  "offshore-priority-workbook": [
+    { title: "Download Priority Report", description: "Download the Offshore Priority Report from SharePoint." },
+    { title: "Download ICT File", description: "Download the ICT file from the designated folder." },
+    { title: "Run Macro", description: "Execute the macro on the reworked offshore file." }
+  ],
+  "lockout": [
+    { title: "Locate Vendor PO", description: "Search for the vendor's PO in Dynamics 365." },
+    { title: "Remove Lockout Date", description: "Remove the lockout date in web authentication settings." },
+    { title: "Send Reset Email", description: "Send an email using the designated template." }
+  ],
+  "access-roles": [
+    { title: "Verify User Roles", description: "Check and confirm the user's access roles." },
+    { title: "Adjust Roles", description: "Update roles as required by the request." },
+    { title: "Notify User", description: "Inform the user that the access roles have been updated." }
+  ],
+  "removing-user": [
+    { title: "Identify the User", description: "Search for the user who needs removal." },
+    { title: "Remove User", description: "Remove the user from the system." },
+    { title: "Confirm Removal", description: "Send a notification email confirming the removal." }
+  ],
+  "verifying-access": [
+    { title: "Check Access Logs", description: "Review access logs to verify credentials." },
+    { title: "Confirm Credentials", description: "Ensure that the correct credentials are used." },
+    { title: "Inform User", description: "Communicate that access has been verified." }
+  ],
+  "vendor-infractions": [
+    { title: "Open Infractions Page", description: "Navigate to the Infractions page in Dynamics 365." },
+    { title: "Add New Contact", description: "Add a contact for the vendor infraction scenario." },
+    { title: "Send Response Email", description: "Use the designated template to respond to the vendor." }
+  ],
+  "adding-new-contact": [
+    { title: "Verify Contact Non-existence", description: "Ensure the contact does not already exist." },
+    { title: "Add New Contact", description: "Enter the required details for the new contact." },
+    { title: "Send Invitation Email", description: "Send the appropriate invitation email." }
+  ],
+  "manual-appointment-c3": [
+    { title: "Download Appointment File", description: "Download the appointment file from C3." },
+    { title: "Update Appointment Details", description: "Modify the file with new appointment details." },
+    { title: "Upload Updated File", description: "Upload the updated file back to C3." }
+  ],
+  "familiarize-platform": [
+    { title: "Log In to Platform", description: "Access the platform using your credentials." },
+    { title: "Explore Features", description: "Familiarize yourself with the key functionalities." },
+    { title: "Review User Guides", description: "Consult the attached user guides for additional help." }
+  ]
+};
+
+/*****************************************************
+ * Initialization
+ *****************************************************/
 function init() {
+  // Show course intro, hide other pages initially.
   document.getElementById("course-intro").style.display = "block";
   document.getElementById("main-screen").style.display = "none";
   document.getElementById("training-video-page").style.display = "none";
+  document.getElementById("steps-page").style.display = "none";
+  document.getElementById("email-templates-page").style.display = "none";
 }
 window.onload = init;
 
-// Course Intro Functions
+/*****************************************************
+ * Course Intro Functions
+ *****************************************************/
 function courseCompletedYes() {
   document.getElementById("course-intro").style.display = "none";
   document.getElementById("main-screen").style.display = "block";
@@ -18,7 +102,9 @@ function courseCompletedNo() {
   updateVideoProgress();
 }
 
-// Training Video Page Logic
+/*****************************************************
+ * Training Video Page Logic
+ *****************************************************/
 var totalVideos = 3;
 var currentVideo = 1;
 function nextVideo() {
@@ -48,50 +134,109 @@ function redoTrainingCourse() {
   document.getElementById("complete-course-button").style.display = "none";
 }
 
-// Static Training Page and Steps Logic (session-only progress)
-let currentStep = 1;
-let completedCatSteps = [false, false, false];
-function showSteps(stepType) {
+/*****************************************************
+ * Dynamic Steps Functions
+ * 
+ * These functions generate the "steps" page dynamically.
+ * To add more steps for a given dropdown option, update the
+ * stepsData object (above) with additional step objects.
+ *****************************************************/
+function showSteps(selectionKey) {
+  // Save the current selection key globally
+  currentSelection = selectionKey;
+  
+  // Retrieve the steps array from the stepsData object
+  let stepsArray = stepsData[selectionKey];
+  if (!stepsArray) {
+    alert("No steps defined for this option.");
+    return;
+  }
+  
+  // Show the steps page and hide the main screen
   document.getElementById('steps-page').style.display = 'block';
   document.getElementById('main-screen').style.display = 'none';
-  completedCatSteps = [false, false, false];
+  
+  // Reset step tracking variables
   currentStep = 1;
-  showStep(currentStep);
+  completedSteps = new Array(stepsArray.length).fill(false);
+  
+  // Dynamically build the checklist HTML
+  let checklistHtml = '<h3>Checklist</h3><ul>';
+  for (let i = 0; i < stepsArray.length; i++) {
+    checklistHtml += `<li><input type="checkbox" id="check-${i+1}"><span onclick="goToStep(${i+1})"> ${stepsArray[i].title}</span></li>`;
+  }
+  checklistHtml += '</ul>';
+  document.querySelector('#steps-page .checklist').innerHTML = checklistHtml;
+  
+  // Dynamically build the steps container HTML
+  let stepsHtml = '';
+  for (let i = 0; i < stepsArray.length; i++) {
+    // If imageUrl exists, create an img tag; otherwise, leave it empty.
+    let imgHtml = stepsArray[i].imageUrl 
+                  ? `<img src="${stepsArray[i].imageUrl}" alt="${stepsArray[i].title}" style="max-width:90%; margin-top:20px; border-radius:10px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);">`
+                  : "";
+    stepsHtml += `<div class="step" id="step-${i+1}" style="display: none;">
+                    <h2>${stepsArray[i].title}</h2>
+                    ${imgHtml}
+                    <p>${stepsArray[i].description}</p>
+                  </div>`;
+  }
+  document.querySelector('#steps-page .steps-container').innerHTML = stepsHtml;
+  
+  // Reset progress bar
+  document.getElementById('progress-bar').style.width = '0%';
+  
+  // Display the first step
+  showStep(1);
 }
+
 function showStep(step) {
-  if (!completedCatSteps[step - 1]) {
-    completedCatSteps[step - 1] = true;
-  }
-  for (let i = 1; i <= 3; i++) {
+  // Mark the current step as completed
+  completedSteps[step - 1] = true;
+  let stepsArray = stepsData[currentSelection];
+  
+  // Show the current step and update checkboxes
+  for (let i = 1; i <= stepsArray.length; i++) {
     document.getElementById(`step-${i}`).style.display = (i === step) ? 'block' : 'none';
-    document.getElementById(`check-${i}`).checked = completedCatSteps[i - 1];
+    document.getElementById(`check-${i}`).checked = completedSteps[i - 1];
   }
-  let completedCount = completedCatSteps.filter(val => val).length;
-  document.getElementById('progress-bar').style.width = ((completedCount / 3) * 100) + '%';
+  
+  // Update the progress bar
+  let completedCount = completedSteps.filter(val => val).length;
+  document.getElementById('progress-bar').style.width = ((completedCount / stepsArray.length) * 100) + '%';
 }
+
 function nextStep() {
-  if (currentStep < 3) {
+  let stepsArray = stepsData[currentSelection];
+  if (currentStep < stepsArray.length) {
     currentStep++;
     showStep(currentStep);
   }
 }
+
 function prevStep() {
   if (currentStep > 1) {
     currentStep--;
     showStep(currentStep);
   }
 }
+
 function goToStep(step) {
   currentStep = step;
   showStep(step);
 }
+
 function goBack() {
+  // Return to the main screen and reset main dropdown value
   document.getElementById('main-screen').style.display = 'block';
   document.getElementById('steps-page').style.display = 'none';
   document.getElementById('main-dropdown').value = '';
 }
 
-// Dog-themed Steps Functions
+/*****************************************************
+ * Dog-themed Steps Functions
+ * (For "manual-appointment-c3" or similar options)
+ *****************************************************/
 let currentDogStep = 1;
 let completedDogSteps = [false, false, false];
 function showDogStep(step) {
@@ -128,31 +273,40 @@ function goBackFromDogs() {
   completedDogSteps = [false, false, false];
 }
 
-// Dropdown Handling Functions
+/*****************************************************
+ * Dropdown Handling Functions
+ *****************************************************/
 function handleMainDropdownChange() {
   const mainDropdown = document.getElementById('main-dropdown');
   const powerbiDropdown = document.getElementById('powerbi-dropdown');
   const portalIssuesDropdown = document.getElementById('portal-issues-dropdown');
+  
+  // Hide all child dropdowns and pages
   powerbiDropdown.style.display = 'none';
   portalIssuesDropdown.style.display = 'none';
   document.getElementById('steps-page').style.display = 'none';
   document.getElementById('steps-page-dogs').style.display = 'none';
   document.getElementById('email-templates-page').style.display = 'none';
+  
+  // Determine which option was selected and display accordingly.
   if (mainDropdown.value === 'email-templates') {
     showEmailTemplates();
   } else if (mainDropdown.value === 'powerbi-reports') {
     powerbiDropdown.style.display = 'block';
   } else if (mainDropdown.value === 'portal-issues-general') {
     portalIssuesDropdown.style.display = 'block';
-  } else if (mainDropdown.value === 'daily-pdrp' ||
-             mainDropdown.value === 'offshore-priority-workbook' ||
-             mainDropdown.value === 'vendor-infractions' ||
-             mainDropdown.value === 'adding-new-contact' ||
-             mainDropdown.value === 'manual-appointment-c3' ||
-             mainDropdown.value === 'familiarize-platform') {
+  } else if (
+    mainDropdown.value === 'daily-pdrp' ||
+    mainDropdown.value === 'offshore-priority-workbook' ||
+    mainDropdown.value === 'vendor-infractions' ||
+    mainDropdown.value === 'adding-new-contact' ||
+    mainDropdown.value === 'manual-appointment-c3' ||
+    mainDropdown.value === 'familiarize-platform'
+  ) {
     showSteps(mainDropdown.value);
   }
 }
+
 function handlePowerBIDropdownChange() {
   const powerbiSelect = document.getElementById('powerbi-select');
   if (powerbiSelect.value === 'holes-report') {
@@ -161,6 +315,7 @@ function handlePowerBIDropdownChange() {
     showSteps('vendor-delivered-report');
   }
 }
+
 function handlePortalIssuesDropdownChange() {
   const portalIssuesSelect = document.getElementById('portal-issues-select');
   if (portalIssuesSelect.value === 'lockout') {
@@ -174,7 +329,9 @@ function handlePortalIssuesDropdownChange() {
   }
 }
 
-// Email Templates Functions
+/*****************************************************
+ * Email Templates Functions
+ *****************************************************/
 function showEmailTemplates() {
   document.getElementById('email-templates-page').style.display = 'block';
   document.getElementById('main-screen').style.display = 'none';
@@ -186,44 +343,67 @@ function showEmailTemplate(templateNumber) {
   }
   document.getElementById(`email-template-${templateNumber}`).style.display = 'block';
 }
+
+// copyEmailTemplate() uses a temporary contentEditable div to preserve HTML formatting.
 async function copyEmailTemplate(templateId) {
   let templateElement = document.getElementById(templateId);
-  let templateClone = templateElement.cloneNode(true); // Clone to prevent modifying actual template
+  let templateClone = templateElement.cloneNode(true); // Clone to prevent modifying the live element
 
-  // Remove elements that shouldn't be copied
-  let title = templateClone.querySelector("h2"); // Remove "Email Template X" header
+  // Remove elements that shouldn't be copied (header and copy button)
+  let title = templateClone.querySelector("h2");
   if (title) title.remove();
-  let button = templateClone.querySelector("button"); // Remove "Copy Template" button
+  let button = templateClone.querySelector("button");
   if (button) button.remove();
 
-  // Replace the placeholder {{TEMP_PASSWORD}} with a generated password
+  // Replace the temporary password placeholder with a new generated password
   let tempPasswordElement = templateClone.querySelector("#temp-password");
   if (tempPasswordElement) {
     tempPasswordElement.textContent = generateTempPassword();
   }
 
-  // Convert content to clean HTML (preserving formatting)
+  // Get the HTML content from the clone
   let htmlContent = templateClone.innerHTML.trim();
 
+  // Create a temporary off-screen contentEditable div to hold the HTML
+  let tempDiv = document.createElement("div");
+  tempDiv.style.position = "absolute";
+  tempDiv.style.left = "-9999px";
+  tempDiv.contentEditable = "true";
+  tempDiv.innerHTML = htmlContent;
+  document.body.appendChild(tempDiv);
+
+  // Select the content and execute copy command
+  let range = document.createRange();
+  range.selectNodeContents(tempDiv);
+  let selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+
   try {
-    await navigator.clipboard.write([
-      new ClipboardItem({
-        "text/html": new Blob([htmlContent], { type: "text/html" })
-      })
-    ]);
-    alert("Email template copied to clipboard with formatting!");
+    if (document.execCommand("copy")) {
+      alert("Email template copied to clipboard with formatting!");
+    } else {
+      alert("Copy command was unsuccessful.");
+    }
   } catch (err) {
     alert("Failed to copy email. Please try a different browser.");
     console.error("Copy failed:", err);
   }
+  
+  // Clean up
+  document.body.removeChild(tempDiv);
+  selection.removeAllRanges();
 }
+
 function goBackFromEmailTemplates() {
   document.getElementById('main-screen').style.display = 'block';
   document.getElementById('email-templates-page').style.display = 'none';
   document.getElementById('main-dropdown').value = '';
 }
 
-// Generate a 7-character random password
+/*****************************************************
+ * Generate a 7-character Random Password
+ *****************************************************/
 function generateTempPassword() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let password = "";
