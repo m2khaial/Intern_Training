@@ -142,39 +142,44 @@ function redoTrainingCourse() {
  * stepsData object (above) with additional step objects.
  *****************************************************/
 function showSteps(selectionKey) {
-  // Save the current selection key globally
-  currentSelection = selectionKey;
-  
-  // Retrieve the steps array from the stepsData object
+  currentSelection = selectionKey; // Save the selection
   let stepsArray = stepsData[selectionKey];
+
   if (!stepsArray) {
     alert("No steps defined for this option.");
     return;
   }
-  
-  // Show the steps page and hide the main screen
+
+  // Show steps page and hide main screen
   document.getElementById('steps-page').style.display = 'block';
   document.getElementById('main-screen').style.display = 'none';
-  
+
   // Reset step tracking variables
   currentStep = 1;
   completedSteps = new Array(stepsArray.length).fill(false);
-  
-  // Dynamically build the checklist HTML
+
+  // Clear previous steps
+  document.querySelector('#steps-page .checklist').innerHTML = '';
+  document.querySelector('#steps-page .steps-container').innerHTML = '';
+
+  // Build checklist dynamically
   let checklistHtml = '<h3>Checklist</h3><ul>';
   for (let i = 0; i < stepsArray.length; i++) {
-    checklistHtml += `<li><input type="checkbox" id="check-${i+1}"><span onclick="goToStep(${i+1})"> ${stepsArray[i].title}</span></li>`;
+    checklistHtml += `<li>
+      <input type="checkbox" id="check-${i+1}">
+      <span onclick="goToStep(${i+1})"> ${stepsArray[i].title}</span>
+    </li>`;
   }
   checklistHtml += '</ul>';
   document.querySelector('#steps-page .checklist').innerHTML = checklistHtml;
-  
-  // Dynamically build the steps container HTML
+
+  // Build step container dynamically
   let stepsHtml = '';
   for (let i = 0; i < stepsArray.length; i++) {
-    // If imageUrl exists, create an img tag; otherwise, leave it empty.
     let imgHtml = stepsArray[i].imageUrl 
-                  ? `<img src="${stepsArray[i].imageUrl}" alt="${stepsArray[i].title}" style="max-width:90%; margin-top:20px; border-radius:10px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);">`
-                  : "";
+      ? `<img src="${stepsArray[i].imageUrl}" alt="${stepsArray[i].title}" style="max-width:90%; margin-top:20px; border-radius:10px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);">`
+      : "";
+
     stepsHtml += `<div class="step" id="step-${i+1}" style="display: none;">
                     <h2>${stepsArray[i].title}</h2>
                     ${imgHtml}
@@ -182,13 +187,14 @@ function showSteps(selectionKey) {
                   </div>`;
   }
   document.querySelector('#steps-page .steps-container').innerHTML = stepsHtml;
-  
+
   // Reset progress bar
   document.getElementById('progress-bar').style.width = '0%';
-  
-  // Display the first step
+
+  // Show the first step
   showStep(1);
 }
+
 
 function showStep(step) {
   // Mark the current step as completed
@@ -281,13 +287,14 @@ function handleMainDropdownChange() {
   const powerbiDropdown = document.getElementById('powerbi-dropdown');
   const portalIssuesDropdown = document.getElementById('portal-issues-dropdown');
 
-  // Hide all child dropdowns and content pages first
+  // Hide all dropdowns first
   document.querySelectorAll('.child-dropdown').forEach(dropdown => dropdown.style.display = 'none');
+
+  // Hide all content pages initially
   document.getElementById('steps-page').style.display = 'none';
-  document.getElementById('steps-page-dogs').style.display = 'none';
   document.getElementById('email-templates-page').style.display = 'none';
 
-  // Determine which option was selected and display accordingly.
+  // Check which option was selected and display accordingly
   switch (mainDropdown.value) {
     case 'email-templates':
       showEmailTemplates();
@@ -301,17 +308,13 @@ function handleMainDropdownChange() {
       portalIssuesDropdown.style.display = 'block';
       break;
     
-    case 'daily-pdrp':
-    case 'offshore-priority-workbook':
-    case 'vendor-infractions':
-    case 'adding-new-contact':
-    case 'manual-appointment-c3':
-    case 'familiarize-platform':
-      showSteps(mainDropdown.value);
+    default:
+      if (stepsData.hasOwnProperty(mainDropdown.value)) {
+        showSteps(mainDropdown.value);
+      }
       break;
   }
 }
-
 
 function handlePowerBIDropdownChange() {
   const powerbiSelect = document.getElementById('powerbi-select');
