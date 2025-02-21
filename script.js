@@ -14,9 +14,21 @@ const stepsData = {
     { title: "Confirm Details", description: "Ensure the credentials and instructions are correct." }
   ],
   "holes-report": [
-    { title: "Access Holes Report", description: "Open the Holes Report in Power BI and verify its update." },
-    { title: "Test Flow", description: "Run the Power Automate flow and observe its execution." },
-    { title: "Verify Sent Emails", description: "Check that all expected emails were sent." }
+    { 
+      title: "Access Holes Report", 
+      description: "Open the Holes Report in Power BI and verify its update.",
+      imageUrl: "images/holes-report-step1.png"
+    },
+    { 
+      title: "Test Flow", 
+      description: "Run the Power Automate flow and observe its execution.",
+      imageUrl: "images/holes-report-step2.png"
+    },
+    { 
+      title: "Verify Sent Emails", 
+      description: "Check that all expected emails were sent.",
+      imageUrl: "images/holes-report-step3.png"
+    }
   ],
   "vendor-delivered-report": [
     { title: "Open Vendor Delivered Report", description: "Access the report and verify the update timestamp." },
